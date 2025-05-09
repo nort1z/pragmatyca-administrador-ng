@@ -1,13 +1,41 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
+// Angular Material
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
+// PrimeNG
+import { TableModule } from 'primeng/table';
+
+// Models & Store
 import { Cliente } from '../../models/cliente.model';
 import * as ClienteActions from '../../store/cliente.actions';
 import * as ClienteSelectors from '../../store/cliente.selectors';
 
 @Component({
   selector: 'app-busqueda-cliente',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FlexLayoutModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    TableModule
+  ],
   templateUrl: './busqueda-cliente.component.html',
   styleUrls: ['./busqueda-cliente.component.scss']
 })

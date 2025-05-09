@@ -16,22 +16,22 @@ export const initialState: ClienteState = {
 
 export const clienteReducer = createReducer(
   initialState,
-  on(ClienteActions.buscarClientePorRut, state => ({
+  on(ClienteActions.buscarClientePorRut, (state: ClienteState) => ({
     ...state,
     loading: true,
     error: null
   })),
-  on(ClienteActions.buscarClientePorRutSuccess, (state, { clientes }) => ({
+  on(ClienteActions.buscarClientePorRutSuccess, (state: ClienteState, { clientes }: { clientes: Cliente[] }) => ({
     ...state,
     clientes,
     loading: false
   })),
-  on(ClienteActions.buscarClientePorRutFailure, (state, { error }) => ({
+  on(ClienteActions.buscarClientePorRutFailure, (state: ClienteState, { error }: { error: string }) => ({
     ...state,
     error,
     loading: false
   })),
-  on(ClienteActions.resetClienteState, state => ({
+  on(ClienteActions.resetClienteState, (state: ClienteState) => ({
     ...initialState
   }))
 );
