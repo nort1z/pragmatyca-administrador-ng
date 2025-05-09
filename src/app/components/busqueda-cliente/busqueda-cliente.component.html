@@ -1,0 +1,70 @@
+<div class="container" fxLayout="column" fxLayoutGap="20px">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Búsqueda de Clientes por RUT</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="formBusqueda" (ngSubmit)="buscarCliente()" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+        <mat-form-field appearance="outline" fxFlex>
+          <mat-label>RUT</mat-label>
+          <input matInput formControlName="rut" placeholder="Ingrese RUT a buscar">
+          <mat-error *ngIf="formBusqueda.get('rut')?.hasError('required')">
+            El RUT es obligatorio
+          </mat-error>
+        </mat-form-field>
+        
+        <div fxLayout="row" fxLayoutGap="10px">
+          <button mat-raised-button color="primary" type="submit" [disabled]="formBusqueda.invalid">
+            <mat-icon>search</mat-icon> Buscar
+          </button>
+          <button mat-button color="warn" type="button" (click)="limpiarResultados()">
+            <mat-icon>clear</mat-icon> Limpiar
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <div *ngIf="loading$ | async" fxLayoutAlign="center center">
+    <mat-spinner diameter="40"></mat-spinner>
+  </div>
+
+  <mat-card *ngIf="(error$ | async) as error">
+    <mat-card-content class="error-message">
+      <mat-icon color="warn">error</mat-icon>
+      {{ error }}
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card *ngIf="(clientes$ | async)?.length">
+    <mat-card-content>
+      <p-table [value]="clientes$ | async" styleClass="p-datatable-striped" responsiveLayout="scroll">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>ID</th>
+            <th>RUT</th>
+            <th>Nombre</th>
+            <th>Apellido Paterno</th>
+            <th>Apellido Materno</th>
+            <th>Email</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-cliente>
+          <tr>
+            <td>{{ cliente.id }}</td>
+            <td>{{ cliente.rut }}</td>
+            <td>{{ cliente.nombre }}</td>
+            <td>{{ cliente.apellidoPaterno }}</td>
+            <td>{{ cliente.apellidoMaterno }}</td>
+            <td>{{ cliente.email }}</td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="6" class="empty-message">No se encontraron clientes con el RUT especificado.</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </mat-card-content>
+  </mat-card>
+</div>

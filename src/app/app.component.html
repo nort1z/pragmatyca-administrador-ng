@@ -1,0 +1,15 @@
+<div class="app-container">
+  <mat-toolbar color="primary" class="app-toolbar">
+    <span>{{ title }}</span>
+  </mat-toolbar>
+
+  <main class="app-content">
+    <app-busqueda-cliente></app-busqueda-cliente>
+  </main>
+
+  <footer class="app-footer">
+    <div class="footer-content">
+      © {{ today | date: 'yyyy' }} Pragmatyca ADM - Todos los derechos reservados
+    </div>
+  </footer>
+</div>
